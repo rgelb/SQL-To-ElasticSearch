@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "SQL to Elastic Search Converter";
+}
+<h2>Small application to convert SQL queries to ElasticSearch syntax</h2>
+
+<p>The application supports a very limited subset of sql. This is a work in progress. Here are examples of what works:</p>
+
+<code style="padding:initial">
+SELECT name, type, state, pin<br />
+FROM AutocompleteCities<br />
+WHERE name = 'Miami'<br />
+&nbsp;&nbsp; AND state = 'FL'<br />
+&nbsp;&nbsp; AND recoIds IN (1325, 1327)<br />
+&nbsp;&nbsp; AND averageAge BETWEEN 34 AND 65<br />
+&nbsp;&nbsp; AND averageSalary >= 55230<br />
+&nbsp;&nbsp; AND averageTemperature < 80
+</code>
+
+<div style="height:15px;"></div>
+
+<code style="padding:initial">
+SELECT *<br />
+FROM Planets<br />
+WHERE SpacecraftWithinKilometers < 10000
+</code>
+
+<p style="margin-top:15px;">At the moment the following things do not work:</p>
+<ul>
+  <li>Grouping</li>
+  <li>Aggregations</li>
+  <li>Sorting</li>
+  <li>LIKE operator</li>
+</ul>

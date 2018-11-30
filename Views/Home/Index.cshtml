@@ -1,0 +1,24 @@
+﻿@model ConvertModel
+
+@{
+    ViewData["Title"] = "SQL to Elastic Search Converter";
+}
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>SQL to ElasticSearch Converter</h1>
+    <h3>Place SQL in the text area below, then click <span class="semibold">Convert</span></h3>
+
+    <form asp-controller="Home" asp-action="Index" id="frmMain" name="frmMain" method="post" class="form-horizontal" data-toggle="validator">
+      @Html.TextAreaFor(m => m.SQLQuery, new { @class = "form-control", @rows = 10 })
+      <input type="submit" value="Convert" class="btn btn-primary" style="margin-top: 3px;" />
+
+      @if (!string.IsNullOrWhiteSpace(Model.ElasticQuery)) {
+        <div style="height: 15px"><!--vertical space--></div>
+        <h2>Converted Elastic Search query</h2>
+        <textarea class="form-control" rows="@Model.ElasticQuery.Split('\n').Length + 2">@Html.Raw(Model.ElasticQuery)</textarea>
+      }
+    </form>
+
+  </div>
+</div>
