@@ -13,10 +13,10 @@ The WHERE conditions support a subset of operators: =, >, >=, <, <=, IN, BETWEEN
 Examples:
 ```sql
 SELECT name, type, state, pin
-FROM AutocompleteCities
+FROM cities
 WHERE name = 'Miami'
    AND state = 'FL'
-   AND recoIds IN (1325, 1327)
+   AND zipCodes IN (33126, 33151)
    AND averageAge BETWEEN 34 AND 65
    AND averageSalary >= 55230
    AND averageTemperature < 80 
