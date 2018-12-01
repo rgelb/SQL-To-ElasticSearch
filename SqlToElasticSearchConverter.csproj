@@ -2,7 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>e6335af7-f52c-46ca-b2ab-b6c53002a5ed</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
