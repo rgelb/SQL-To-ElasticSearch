@@ -7,10 +7,10 @@
 
 <code style="padding:initial">
 SELECT name, type, state, pin<br />
-FROM AutocompleteCities<br />
+FROM cities<br />
 WHERE name = 'Miami'<br />
 &nbsp;&nbsp; AND state = 'FL'<br />
-&nbsp;&nbsp; AND recoIds IN (1325, 1327)<br />
+&nbsp;&nbsp; AND zipCode IN (33126, 33151)<br />
 &nbsp;&nbsp; AND averageAge BETWEEN 34 AND 65<br />
 &nbsp;&nbsp; AND averageSalary >= 55230<br />
 &nbsp;&nbsp; AND averageTemperature < 80
