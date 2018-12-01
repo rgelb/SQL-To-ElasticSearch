@@ -38,4 +38,4 @@ WHERE SpacecraftWithinKilometers < 10000
 + Common SQL functions like GetDate, DateDiff, etc are not supported yet
 
 ## The Plan
-Time permitting, I'd like to 
+See the "What doesn't work yet" section
