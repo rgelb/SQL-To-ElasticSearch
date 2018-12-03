@@ -14,11 +14,63 @@
       <input type="submit" value="Convert" class="btn btn-primary" style="margin-top: 3px;" />
 
       @if (!string.IsNullOrWhiteSpace(Model.ElasticQuery)) {
-        <div style="height: 15px"><!--vertical space--></div>
-        <h2>Converted Elastic Search query</h2>
-        <textarea class="form-control" rows="@Model.ElasticQuery.Split('\n').Length + 2">@Html.Raw(Model.ElasticQuery)</textarea>
+        <div style="height: 35px"><!--vertical space--></div>
+        <div>
+          <h3 style="display:inline">Converted Elastic Search query</h3>
+          <span style="float: right"><input type="button" id="btnCopyConvertedCode" value="Copy" class="btn btn-primary" style="margin-bottom: 3px;" /></span>
+        </div>
+        
+        <textarea id="txtElasticQuery" class="form-control" rows="@Model.ElasticQuery.Split('\n').Length + 2">@Html.Raw(Model.ElasticQuery)</textarea>
       }
     </form>
 
   </div>
 </div>
+
+
+@section Scripts {
+  <script>
+    $(document).ready(function () {
+
+      // setup the copy
+      $('#btnCopyConvertedCode').on('click', function () {
+        var success = copyTextToClipboard($("#txtElasticQuery").text());
+      });
+
+    });
+
+    function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Fallback: Copying text command was ' + msg);
+        return true;
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+        return false;
+      }
+
+      document.body.removeChild(textArea);
+    }
+    function copyTextToClipboard(text) {
+      if (!navigator.clipboard) {
+        return fallbackCopyTextToClipboard(text);
+      }
+
+      navigator.clipboard.writeText(text).then(function () {
+        console.log('Async: Copying to clipboard was successful!');
+        return true;
+      }, function (err) {
+        console.error('Async: Could not copy text: ', err);
+        return false;
+      });
+    }
+
+  </script>
+}
