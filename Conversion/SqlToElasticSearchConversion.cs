@@ -81,6 +81,13 @@ namespace SqlToElasticSearchConverter {
                                                     .Replace("(value)", condition.SingularValue);
                         break;
 
+                    case WhereCondition.OperatorType.Like:
+                        conditionText = Templates.LikeCondition
+                                                    .Replace("(column)", condition.Column)
+                                                    .Replace("(value)", condition.SingularValue.Replace("%", "*").ToLower());
+
+                        break;
+                            
                     case WhereCondition.OperatorType.Unknown:
                         break;
                 }

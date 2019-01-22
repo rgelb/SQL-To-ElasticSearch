@@ -8,7 +8,7 @@
 <code style="padding:initial">
 SELECT name, type, state, pin<br />
 FROM cities<br />
-WHERE name = 'Miami'<br />
+WHERE name LIKE 'M%'<br />
 &nbsp;&nbsp; AND state = 'FL'<br />
 &nbsp;&nbsp; AND zipCode IN (33126, 33151)<br />
 &nbsp;&nbsp; AND averageAge BETWEEN 34 AND 65<br />
@@ -29,5 +29,5 @@ WHERE SpacecraftWithinKilometers < 10000
   <li>Grouping</li>
   <li>Aggregations</li>
   <li>Sorting</li>
-  <li>LIKE operator</li>
+  <li style="text-decoration: line-through">LIKE operator</li>
 </ul>

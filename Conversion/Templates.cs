@@ -47,6 +47,14 @@ namespace SqlToElasticSearchConverter {
                 }
             ";
 
+        public const string LikeCondition = @"
+                {
+                      ""wildcard"": {
+                        ""(column)"": ""(value)""
+                      }
+                }
+            ";
+
         public const string Conditions = @"""query"": {
                 ""bool"": {
                     ""must"": [

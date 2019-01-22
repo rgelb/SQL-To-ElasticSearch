@@ -20,7 +20,8 @@ namespace SqlToElasticSearchConverter {
             LessThanOrEquals,
             In,
             Between,
-            Unknown
+            Unknown,
+            Like
         }
 
         public string Column { get; set; } = null;
@@ -44,6 +45,9 @@ namespace SqlToElasticSearchConverter {
                         break;
                     case OperatorType.Between:
                         betweenValues.Add(trimmedValue);
+                        break;
+                    case OperatorType.Like:
+                        singularValue = trimmedValue;
                         break;
                 }
             }
@@ -91,6 +95,8 @@ namespace SqlToElasticSearchConverter {
                     return OperatorType.In;
                 case "between":
                     return OperatorType.Between;
+                case "like":
+                    return OperatorType.Like;
                 default:
                     return OperatorType.Unknown;
             }
