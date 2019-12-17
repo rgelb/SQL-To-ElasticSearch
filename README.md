@@ -2,7 +2,7 @@
 
 [Demo website](https://sqltoelasticsearch.azurewebsites.net/).
 
-Build Status: ![Build Status](https://github.com/rgelb/workflows/badge.svg)
+Build Status: ![Build Status](https://github.com/rgelb/workflows/SqlToElasticBuild/badge.svg)
 
 This quickie app converts SQL statements into ElasticSearch equivalent queries.  Note that the converter is very much a work in progress, and as such, doesn't support great many things.
 
