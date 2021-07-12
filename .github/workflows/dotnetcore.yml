@@ -2,6 +2,10 @@ name: SqlToElasticBuild
 
 on: [push]
 
+env:
+  AZURE_WEBAPP_NAME: SqlToElasticSearch
+  AZURE_WEBAPP_PATH: '.'
+
 jobs:
   build:
 
@@ -9,9 +13,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds:  ${{ secrets.AZURE_CREDENTIALS }}
+      
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.2.108
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
+        dotnet-version: 2.2.108    
+    
+    - name: Build and Publish with dotnet
+      run: |
+        dotnet build --configuration Release
+        dotnet publish -c Release - '${{ env.AZURE_WEBAPP_PATH }}/myapp'
+    
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: '${{ env.AZURE_WEBAPP_PATH }}/myapp'
