@@ -30,7 +30,7 @@ namespace SqlToElasticSearchConverter {
             if (fields.Count > 0 && fields[0].Column != "*") {
                 // add quotes around each field, plus a starting minus
                 fieldStatement = string.Join(", ", fields.Select(x => "\"" + x.Column + "\""));
-                fieldStatement = ", \"fields\": [" + fieldStatement + "]";
+                fieldStatement = ", \"_source\": [" + fieldStatement + "]";
             }
 
             // get the conditions statement
