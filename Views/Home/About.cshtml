@@ -6,28 +6,36 @@
 <p>The application supports a very limited subset of sql. This is a work in progress. Here are examples of what works:</p>
 
 <code style="padding:initial">
-SELECT name, type, state, pin<br />
-FROM cities<br />
-WHERE name LIKE 'M%'<br />
-&nbsp;&nbsp; AND state = 'FL'<br />
-&nbsp;&nbsp; AND zipCode IN (33126, 33151)<br />
-&nbsp;&nbsp; AND averageAge BETWEEN 34 AND 65<br />
-&nbsp;&nbsp; AND averageSalary >= 55230<br />
-&nbsp;&nbsp; AND averageTemperature < 80
+    SELECT name, type, state, pin<br />
+    FROM cities<br />
+    WHERE name LIKE 'M%'<br />
+    &nbsp;&nbsp; AND state = 'FL'<br />
+    &nbsp;&nbsp; AND zipCode IN (33126, 33151)<br />
+    &nbsp;&nbsp; AND averageAge BETWEEN 34 AND 65<br />
+    &nbsp;&nbsp; AND averageSalary >= 55230<br />
+    &nbsp;&nbsp; AND averageTemperature < 80
 </code>
 
 <div style="height:15px;"></div>
 
 <code style="padding:initial">
-SELECT *<br />
-FROM Planets<br />
-WHERE SpacecraftWithinKilometers < 10000
+    SELECT *<br />
+    FROM Planets<br />
+    WHERE SpacecraftWithinKilometers < 10000
+</code>
+
+<div style="height:15px;"></div>
+
+<code style="padding:initial">
+    SELECT SolarSystem, Galaxy
+    FROM Planets
+    WHERE SpacecraftWithinKilometers < 10000
+    GROUP BY SolarSystem, Galaxy
 </code>
 
 <p style="margin-top:15px;">At the moment the following things do not work:</p>
 <ul>
-  <li>Grouping</li>
-  <li>Aggregations</li>
-  <li>Sorting</li>
-  <li style="text-decoration: line-through">LIKE operator</li>
+    <li>Sorting</li>
+    <li>Inequality operator (!=)</li>
+    <li>Common SQL functions like GetDate, DateDiff, Count(*), etc are not supported yet</li>
 </ul>

@@ -10,8 +10,8 @@ This quickie app converts SQL statements into ElasticSearch equivalent queries. 
 At the moment the application supports SELECT, FROM, WHERE, GROUP BY statements.  
 For SELECT, you can either place * or specify column names.
 The FROM statement works with either aliases or indexes.  
-The WHERE conditions support a subset of operators: =, >, >=, <, <=, IN, BETWEEN
-The GROUP BY statement only supports column names.  Functions such as COUNT(*) will cause the translation to fail
+The WHERE conditions support a subset of operators: =, >, >=, <, <=, IN, BETWEEN.
+The GROUP BY statement only supports column names.  Columns in the GROUP BY must match those in SELECT.  
 
 Examples:
 ```sql
@@ -40,10 +40,9 @@ GROUP BY SolarSystem, Galaxy
 
 ## What doesn't work yet
 + Inequality operator (!=)
-+ LIKE operator
 + Sorting
 + Joins (because ElasticSearch doesn't support them)
-+ Common SQL functions like GetDate, DateDiff, etc are not supported yet
++ Common SQL functions like GetDate, DateDiff, Count(*), etc are not supported yet
 
 ## The Plan
 See the "What doesn't work yet" section
