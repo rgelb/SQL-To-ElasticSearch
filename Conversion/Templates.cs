@@ -62,5 +62,14 @@ namespace SqlToElasticSearchConverter {
                     ]
                 }
             }";
+
+        public const string GroupBy = @"
+              ""aggregations"": {
+                ""(column)"": {
+                  ""terms"": { ""field"": ""(column).keyword"" }(additionalAggregation)
+                }
+              }";
+
+        public static string SizeZero => @"""size"": 0";
     }
 }

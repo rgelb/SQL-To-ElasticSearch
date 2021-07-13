@@ -7,10 +7,11 @@
 This quickie app converts SQL statements into ElasticSearch equivalent queries.  Note that the converter is very much a work in progress, and as such, doesn't support great many things.
 
 ## What works
-At the moment the application supports SELECT, FROM, WHERE statements.  
+At the moment the application supports SELECT, FROM, WHERE, GROUP BY statements.  
 For SELECT, you can either place * or specify column names.
 The FROM statement works with either aliases or indexes.  
-The WHERE conditions support a subset of operators: =, >, >=, <, <=, IN, BETWEEN 
+The WHERE conditions support a subset of operators: =, >, >=, <, <=, IN, BETWEEN
+The GROUP BY statement only supports column names.  Functions such as COUNT(*) will cause the translation to fail
 
 Examples:
 ```sql
@@ -30,11 +31,16 @@ FROM Planets
 WHERE SpacecraftWithinKilometers < 10000
 ```
 
+```sql
+SELECT SolarSystem, Galaxy
+FROM Planets
+WHERE SpacecraftWithinKilometers < 10000
+GROUP BY SolarSystem, Galaxy
+```
 
 ## What doesn't work yet
 + Inequality operator (!=)
 + LIKE operator
-+ Grouping and Aggregations
 + Sorting
 + Joins (because ElasticSearch doesn't support them)
 + Common SQL functions like GetDate, DateDiff, etc are not supported yet
