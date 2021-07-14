@@ -1,10 +1,12 @@
 ﻿@{
     ViewData["Title"] = "SQL to Elastic Search Converter";
 }
-<h2>Small application to convert SQL queries to ElasticSearch syntax</h2>
+<h2>Convert SQL queries to ElasticSearch syntax</h2>
 
-<p>The application supports a very limited subset of sql. This is a work in progress. Here are examples of what works:</p>
+<p>The application supports a very limited subset of sql. This is a work in progress. Here are some examples of what works.</p>
+<div style="height:10px;"></div>
 
+<h4>SELECT with specific column names and a variety of criteria</h4>
 <code style="padding:initial">
     SELECT name, type, state, pin<br />
     FROM cities<br />
@@ -18,6 +20,7 @@
 
 <div style="height:15px;"></div>
 
+<h4>SELECT all columns with criteria</h4>
 <code style="padding:initial">
     SELECT *<br />
     FROM Planets<br />
@@ -26,6 +29,7 @@
 
 <div style="height:15px;"></div>
 
+<h4>GROUP BY with criteria</h4>
 <code style="padding:initial">
     SELECT SolarSystem, Galaxy<br />
     FROM Planets<br />
