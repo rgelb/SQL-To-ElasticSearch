@@ -1,53 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SqlToElasticSearchConverter;
+using SqlToElasticSearchConverter.Helpers;
 
-namespace SqlToElasticSearchConverter {
-    public class Program {
-        public static void Main(string[] args) {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+var appArgs = new AppArguments();
+Parser.ParseArgumentsWithUsage(args, appArgs);
 
-        //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        //    WebHost.CreateDefaultBuilder(args)
-        //        .UseStartup<Startup>();
+var builder = WebApplication.CreateBuilder(args);
 
+// apply custom ports if specified (for Raspberry Pi or other custom setups)
+builder.WebHost.ApplyPorts(appArgs);
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 
-            // support for custom ports
-            var appArgs = new Arguments();
-            Parser.ParseArgumentsWithUsage(args, appArgs);
+var app = builder.Build();
 
-            return WebHost.CreateDefaultBuilder(args)
-                .ApplyPorts(appArgs)
-                .UseStartup<Startup>();
-        }
-
-    }
-
-    public static class WebHostBuilderExtension {
-        public static IWebHostBuilder ApplyPorts(this IWebHostBuilder host, Arguments appArgs) {
-            if (appArgs.Port > 0) {
-                //host.UseUrls($"http://0.0.0.0:{appArgs.Port}");
-                host.UseUrls($"http://*:{appArgs.Port}");
-            }
-
-            return host;
-        }
-    }
-
-    [CommandLineArguments(CaseSensitive = false)]
-    public class Arguments {
-        [Argument(ArgumentType.AtMostOnce, HelpText = "Port", DefaultValue = -1, LongName = "Port", ShortName = "p")]
-        public int Port;
-    }
-
-
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+
+app.Run();
+
